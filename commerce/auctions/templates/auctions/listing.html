@@ -1,0 +1,85 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{listing.title}}</h2>
+    {% if user.is_authenticated %}
+        <div class="mb-3">
+        {% if watchlist %}
+            <form action="{% url 'handlewatchlist' id=listing.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning">Remove from Watchlist</button>
+            </form>
+        {% else %}
+            <form action="{% url 'handlewatchlist' id=listing.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Add to Watchlist</button>
+            </form>
+        {% endif %}
+        </div>
+    {%endif%}
+    <img src="{{listing.imagelink}}" alt="{{listing.title}}">
+    <p>{{listing.description}}</p>
+    {% if listing.activeness %}
+    <h5>${{bid.current.bid__max}}</h5>
+    {% endif %}
+    {% if user.is_authenticated %}
+    {% if listing.activeness %}
+    <form action="{% url 'bid' id=listing.id%}" method="post">
+        {% csrf_token %}
+    <div class="form-group">
+        <label>{{bid.count}} bid(s) so far. {% if currentuser %}Your bid is the current bid.{% endif %}</label>
+        <input type="number" step=0.01 min={{bid.current.bid__max}} class="form-control" name="price" placeholder="Bid" required>
+    </div>
+    <button type="submit" class="btn btn-success">Place Bid</button>
+    </form>
+    {% else %}
+    {% if currentuser %}
+    <h4 style="color: green;">You have won this auction.</h4>
+    {% else %}
+    <h4 style="color: red;">This auction is no longer avaible.</h4>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    <h4>Details:</h4>
+    <ul>
+        <li>Listed By: {{listing.owner}}</li>
+        <li>Category: {% if listing.category %} <a href="/category?category={{listing.category.catname}}">{{listing.category}}</a> {% else %}No Category Listed.{%endif%}</li>
+    </ul>
+
+
+    <div class="mx-3">
+        <h2>Comments:</h2>
+        {% if user.is_authenticated %}
+            <br/>
+            <form action="{% url 'comment' id=listing.id %}" method="post">
+                {% csrf_token %}
+                <textarea name="comment" placeholder="Add Comment..." style="width: 50%; height: 10%;" required></textarea>
+                <br/>
+                <button type="submit" class="btn btn-primary">Comment</button>
+                <br/>
+                <br/>
+            </form>
+        {%endif%}
+
+        {% for comment in listing.comment.all%}
+                <br/>
+                <div style="border: 1px; border-color: black;">
+                    <h5>Commented by: {{comment.owner}}</h5>
+                    <p>{{comment.text}}</p>
+                </div>
+        {%endfor%}
+    </div>
+
+    {% if owner %}
+        <form action="{% url 'listing' id=listing.id%}" method="post">
+            {% csrf_token %}
+            {% if listing.activeness %}
+            <input type="hidden" name="close" value="close">
+            <input class="btn btn-danger" type="submit" value="Close this listing." style="width: 100%;">
+            {% else %}
+            <input type="hidden" name="open" value="open">
+            <input class="btn btn-danger" type="submit" value="Re-open this listing." style="width: 100%;">
+            {% endif %}
+        </form>
+    {% endif %}
+{% endblock %}
