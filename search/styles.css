@@ -1,0 +1,99 @@
+.nav-item {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.nav-item li {
+    margin: 10px;
+}
+.nav-item li a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-item li a:hover {
+    text-decoration: underline;
+}
+
+.search-bar {
+    display: flex;
+    position: relative;
+    min-height: 44px;
+    background: white;
+    border: 1px solid #5f6368;
+    box-shadow: none;
+    border-radius: 24px;
+    margin: 0 auto;
+    width: 600px;
+    max-width: 584px;
+    padding-left: 20px;
+}
+
+.btn {
+    background-color: white;
+    border: 1px solid #303134;
+    border-radius: 4px;
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin: 11px 4px;
+    padding: 0 16px;
+    line-height: 27px;
+    height: 36px;
+    min-width: 54px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+.btn:hover {
+    border: 2px solid black;
+}
+
+.appbar {
+    background: none;
+    color: #f28b82;
+    color: #d93025;
+    font-size: 20px;
+    margin: 25px 35px;
+}
+
+.section {
+    max-width: 1140px;
+    min-width: 200px;
+    width: 96%;
+    margin: 40px 2% 0 45px;
+}
+.section {
+    display: flex;
+    flex-direction: row;
+}
+.section div p {
+    margin-bottom: 20px;
+}
+.section > div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+}
+ .section div input {
+    margin: 20px;
+    background: white;
+    border: 1px solid #5f6368;
+    color: #202124;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    font-size: 13px;
+    height: 25px;
+    padding: 1px 8px;
+    width: 90%;
+ }
+
+ .number {
+    display: flex;
+    flex-direction: row;
+    width: 102%;
+ }
