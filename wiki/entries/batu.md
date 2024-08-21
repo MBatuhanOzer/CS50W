@@ -1,4 +1,0 @@
-# Batu
-
-
-I am Batu.
